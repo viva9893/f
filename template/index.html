@@ -7,7 +7,7 @@
     
 </head>
 <body>
-    <h1>🎬 Netflix Content Catalog</h1>
+    <h1> Netflix Content Catalog</h1>
     <nav>
         <a href="/add">+ Add New Show/Anime</a> | 
         <a href="/trending">📊 View Trending</a>
@@ -27,7 +27,7 @@
             <div class="button-group">
                 <form action="/watch" method="POST" style="flex: 1;">
                     <input type="hidden" name="media_id" value="{{ item['id'] }}">
-                    <button type="submit">▶ Stream Now</button>
+                    <button type="submit">Stream Now</button>
                 </form>
                 <a href="/delete/{{ item['id'] }}" style="flex: 1;">
                     <button class="delete-btn" style="width: 100%;">🗑 Remove</button>
