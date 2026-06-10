@@ -1,57 +1,50 @@
-mport sqlite3
+import sqlite3
 
 def setup_database():
-    conn = sqlite3.connect('library.db')
+    """Setup Netflix database with popular anime data."""
+    conn = sqlite3.connect('netflix_system.db')
     cursor = conn.cursor()
 
     print("Cleaning up old data...")
-    cursor.execute("DROP TABLE IF EXISTS Loans")
-    cursor.execute("DROP TABLE IF EXISTS Books")
-    cursor.execute("DROP TABLE IF EXISTS Members")
+    cursor.execute("DROP TABLE IF EXISTS catalog")
     
-    print("Creating new tables...")
-    cursor.execute("""CREATE TABLE Books (
-        book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    print("Creating catalog table...")
+    cursor.execute('''CREATE TABLE IF NOT EXISTS catalog (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
-        author TEXT NOT NULL,
-        rating REAL DEFAULT 0.0
-        )
-        """)
-    cursor.execute("""
-        CREATE TABLE Members (
-            member_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            member_name TEXT NOT NULL
-        )
-    """)
+        creator TEXT NOT NULL,
+        media_type TEXT NOT NULL,
+        views INTEGER DEFAULT 0
+    )''')
 
-    cursor.execute("""
-        CREATE TABLE Loans (
-            loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            book_ptr INTEGER,
-            member_ptr INTEGER,
-            loan_date DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (book_ptr) REFERENCES Books (book_id),
-            FOREIGN KEY (member_ptr) REFERENCES Members (member_id)
-        )
-    """)
-
-    print("Seeding data...")
-    books = [
-        ('The Great Gatsby', 'F. Scott Fitzgerald', 4.2),
-        ('1984', 'George Orwell', 4.8),
-        ('The Hobbit', 'J.R.R. Tolkien', 4.9),
-        ('Python for Beginners', 'AI Guru', 3.5)
+    print("Seeding popular anime data...")
+    anime_data = [
+        ('Naruto', 'Studio Pierrot', 'Anime', 5420),
+        ('Attack on Titan', 'Wit Studio', 'Anime', 8932),
+        ('Death Note', 'Madhouse', 'Anime', 7654),
+        ('One Piece', 'Toei Animation', 'Anime', 9215),
+        ('My Hero Academia', 'Bones', 'Anime', 6843),
+        ('Demon Slayer', 'ufotable', 'Anime', 8765),
+        ('Jujutsu Kaisen', 'MAPPA', 'Anime', 7532),
+        ('Steins;Gate', 'White Fox', 'Anime', 5421),
+        ('Code Geass', 'Sunrise', 'Anime', 6123),
+        ('Fullmetal Alchemist: Brotherhood', 'Bones', 'Anime', 9001),
+        ('Neon Genesis Evangelion', 'GAINAX', 'Anime', 5678),
+        ('Cowboy Bebop', 'Sunrise', 'Anime', 7890),
+        ('Dragon Ball Z', 'Toei Animation', 'Anime', 8234),
+        ('Bleach', 'Studio Pierrot', 'Anime', 6543),
+        ('Tokyo Ghoul', 'Studio Pierrot', 'Anime', 7234),
     ]
-    cursor.executemany("INSERT INTO Books (title, author, rating) VALUES (?, ?, ?)", books)
-
-    members = [('Alice Smith'), ('Bob Jones'), ('Charlie Brown')]
-    cursor.executemany("INSERT INTO Members (member_name) VALUES (?)", [(m,) for m in members])
-
-    loans = [(3, 1), (3, 2), (2, 1)]
-    cursor.executemany("INSERT INTO Loans (book_ptr, member_ptr) VALUES (?, ?)", loans)
+    
+    cursor.executemany(
+        "INSERT INTO catalog (title, creator, media_type, views) VALUES (?, ?, ?, ?)", 
+        anime_data
+    )
+    
     conn.commit()
     conn.close()
-    print("Database 'library.db' is refreshed and ready!")
+    print("✓ Database 'netflix_system.db' is refreshed and ready!")
+    print(f"✓ Added {len(anime_data)} popular anime titles")
 
 if __name__ == "__main__":
     setup_database()
