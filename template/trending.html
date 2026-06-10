@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Leaderboard</title>
+</head>
+<body>
+    <h1>Top Streamed Leaderboard</h1>
+    <table border="1" cellpadding="8" style="border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>Title</th>
+                <th>Category</th>
+                <th>Global Streams</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stats %}
+            <tr>
+                <td>{{ row['title'] }}</td>
+                <td>{{ row['media_type'] }}</td>
+                <td><strong>{{ row['views'] }}</strong> views</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/">Back to Dashboard</a>
+</body>
+</html>
