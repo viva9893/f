@@ -1,5 +1,93 @@
- <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport"content="width=device-width, initial-scale=1.0"> <title>Add Title</title> </head> <body> <h1>Add New Media to Netflix</h1> <form action="/add" method="POST"> <label>Title:</label><br> <input type="text" name="title"placeholder="e.g., Attack on Titan, Stranger Things" required><br><br> <label>Creator / Studio / Director:</label><br><input type="text" name="creator" placeholder="e.g., MAPPA, Duffer Brothers" required><br><br> <label>Category Type:</label><br> <select name="media_type"> <option value="Anime">Anime</option> <option value="TV Show">TV Show</option> <option value="Movie">Movie</option> </select><br><br> <button type="submit">Publish to Platform</button> </form> <br> <a href="/">Back to Dashboard</a> </body> </html>
-
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: #fff;
+            padding: 40px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #e50914;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #e50914;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #c20812;
+        }
+        a {
+            color: #e50914;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Media to Netflix</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="creator">Creator/Studio:</label>
+                <input type="text" id="creator" name="creator" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="media_type">Media Type:</label>
+                <select id="media_type" name="media_type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Anime">Anime</option>
+                    <option value="TV Show">TV Show</option>
+                    <option value="Movie">Movie</option>
+                </select>
+            </div>
+            
+            <button type="submit">Add Media</button>
+            <a href="/">Back to Dashboard</a>
+        </form>
+    </div>
+</body>
+</html>
